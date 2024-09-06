@@ -6,7 +6,7 @@ const addressDataMap = {
   '202 Cedar St': { city: 'Gainesville', state: 'FL', zip: '32601' },
 }
 
-function showSuggestions() {
+window.showSuggestions = function () {
   const input = document.getElementById('address-select').value.toLowerCase()
   const suggestionsContainer = document.getElementById('suggestions-container')
   suggestionsContainer.innerHTML = ''

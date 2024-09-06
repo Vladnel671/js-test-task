@@ -42,7 +42,11 @@
         <select name="" id="">
           <option value="" selected>GL Pinellas</option>
         </select>
-        <input type="text" resize="true" placeholder="Job description (optional)"/>
+        <input
+          type="text"
+          resize="true"
+          placeholder="Job description (optional)"
+        />
       </form>
 
       <form id="service-location-form" action="">
@@ -86,11 +90,13 @@
         </select>
       </form>
     </div>
-    <div id="deal-link-container" style="display: none;">
-      <h2>Job is created! <a id="deal-link" href="#" target="_blank">View deal</a></h>
+    <div id="deal-link-container" style="display: none">
+      <h2>
+        Job is created! <a id="deal-link" href="#" target="_blank">View deal</a>
+      </h2>
     </div>
     <div class="btn-container">
-      <button type="button" class="first" onclick="addDeal()">Create job</button
+      <button type="submit" class="first" onclick="addDeal()">Create job</button
       ><button type="button" class="second">Save info</button>
     </div>
   </body>

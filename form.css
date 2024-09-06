@@ -75,14 +75,16 @@ select {
 }
 
 #suggestions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   top: 41%;
-  left: 0;
+  left: 4%;
+  right: 4%;
   position: absolute;
-  width: 100%;
   overflow-y: auto;
   box-sizing: border-box;
   border-radius: 10px;
-  gap: 1px;
 }
 
 .suggestion {
