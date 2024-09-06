@@ -48,6 +48,40 @@ window.addDeal = async function () {
 
     const apiKey = import.meta.env.VITE_API_KEY
 
+    const firstName = document.querySelector(
+      '#сlient-details-form input[placeholder="First name"]'
+    ).value
+    const lastName = document.querySelector(
+      '#сlient-details-form input[placeholder="Last name"]'
+    ).value
+    const phoneNumber = document.querySelector(
+      '#сlient-details-form input[placeholder="Phone number"]'
+    ).value
+    const email = document.querySelector(
+      '#сlient-details-form input[placeholder="Email"]'
+    ).value
+
+    const jobType = document.querySelector('#job-type-form select').value
+    const jobDescription = document.querySelector(
+      '#job-type-form input[placeholder="Job description (optional)"]'
+    ).value
+
+    const address = document.getElementById('address-select').value
+    const city = document.getElementById('cityInput').value
+    const state = document.getElementById('stateInput').value
+    const zip = document.getElementById('zipInput').value
+
+    const date = document.querySelector(
+      '#scheduled-form input[type="date"]'
+    ).value
+    const startTime = document.querySelector(
+      '#scheduled-form input[type="time"]:nth-child(1)'
+    ).value
+    const endTime = document.querySelector(
+      '#scheduled-form input[type="time"]:nth-child(2)'
+    ).value
+    const technician = document.querySelector('#scheduled-form select').value
+
     const response = await fetch(
       `https://api.pipedrive.com/v1/deals?api_token=${apiKey}`,
       {
@@ -56,7 +90,7 @@ window.addDeal = async function () {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: 'Deal of the century',
+          title: `${jobType} - ${firstName} ${lastName}`,
           value: 10000,
           currency: 'USD',
           user_id: null,
@@ -64,11 +98,20 @@ window.addDeal = async function () {
           org_id: 1,
           stage_id: 1,
           status: 'open',
-          expected_close_date: '2022-02-11',
+          expected_close_date: date,
           probability: 60,
           lost_reason: null,
           visible_to: 1,
-          add_time: '2021-02-11',
+          add_time: new Date().toISOString(),
+          custom_fields: {
+            phone: phoneNumber,
+            email: email,
+            address: `${address}, ${city}, ${state}, ${zip}`,
+            job_description: jobDescription,
+            start_time: startTime,
+            end_time: endTime,
+            technician: technician,
+          },
         }),
       }
     )
@@ -101,5 +144,28 @@ window.addDeal = async function () {
     }
   } catch (error) {
     console.error('Adding failed', error)
+  }
+}
+
+window.submitForm = function (event) {
+  event.preventDefault()
+
+  const clientForm = document.getElementById('сlient-details-form')
+  const jobTypeForm = document.getElementById('job-type-form')
+  const serviceLocationForm = document.getElementById('service-location-form')
+  const scheduledForm = document.getElementById('scheduled-form')
+
+  if (
+    clientForm.checkValidity() &&
+    jobTypeForm.checkValidity() &&
+    serviceLocationForm.checkValidity() &&
+    scheduledForm.checkValidity()
+  ) {
+    addDeal()
+  } else {
+    clientForm.reportValidity()
+    jobTypeForm.reportValidity()
+    serviceLocationForm.reportValidity()
+    scheduledForm.reportValidity()
   }
 }
