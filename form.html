@@ -39,8 +39,8 @@
           <option value="welding">Welding Job</option>
           <option value="packaging">Packaging Job</option>
         </select>
-        <select name="" id="">
-          <option value="" selected>GL Pinellas</option>
+        <select name="" id="job-source-select">
+          <option value="GL Pinellas">GL Pinellas</option>
         </select>
         <input
           type="text"
@@ -71,9 +71,10 @@
 
       <form id="scheduled-form" action="">
         <h1>Scheduled</h1>
-        <input type="date" />
+        <input type="date" id="dateInput" />
         <div class="inputs-container">
-          <input name="" type="time" id="" /><input name="" type="time" id="" />
+          <input type="time" id="startTimeInput" />
+          <input type="time" id="endTimeInput" />
         </div>
         <select name="" id="">
           <option value="" selected disabled>Select technician</option>

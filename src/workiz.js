@@ -39,6 +39,10 @@ function selectAddress(address) {
   document.getElementById('suggestions-container').innerHTML = ''
 }
 
+function generateJobID() {
+  return Math.random().toString(36).substr(2, 9)
+}
+
 window.addDeal = async function () {
   try {
     console.log('Sending request...')
@@ -47,6 +51,8 @@ window.addDeal = async function () {
     button.style.backgroundColor = 'red'
 
     const apiKey = import.meta.env.VITE_API_KEY
+
+    const jobSource = document.getElementById('job-source-select').value
 
     const firstName = document.querySelector(
       '#сlient-details-form input[placeholder="First name"]'
@@ -81,7 +87,7 @@ window.addDeal = async function () {
       '#scheduled-form input[type="time"]:nth-child(2)'
     ).value
     const technician = document.querySelector('#scheduled-form select').value
-
+    const jobID = generateJobID()
     const response = await fetch(
       `https://api.pipedrive.com/v1/deals?api_token=${apiKey}`,
       {
@@ -90,28 +96,17 @@ window.addDeal = async function () {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: `${jobType} - ${firstName} ${lastName}`,
-          value: 10000,
-          currency: 'USD',
-          user_id: null,
-          person_id: null,
-          org_id: 1,
-          stage_id: 1,
-          status: 'open',
-          expected_close_date: date,
-          probability: 60,
-          lost_reason: null,
-          visible_to: 1,
+          title: `JOB - ${jobID}`,
           add_time: new Date().toISOString(),
-          custom_fields: {
-            phone: phoneNumber,
-            email: email,
-            address: `${address}, ${city}, ${state}, ${zip}`,
-            job_description: jobDescription,
-            start_time: startTime,
-            end_time: endTime,
-            technician: technician,
-          },
+          'ef7d645cac543da5c457666b08698fa9a9e7c39e': `${date}`,
+          '65ec34aa89ec2138cbc2488c1958d54a4754489a': `${jobDescription}`,
+          'bc1f7b25cc42d2dd74074c23d6b7fbe688c32814': `${jobType}`,
+          'ca3f363566948dd5b6c7917b5839d98e215bc10c': `${startTime}`,
+          'a37fd2e426281c863eebe914b8cd56edd521aca6': `${endTime}`,
+          'b85d774eb991dea75388ca7483647e5e1e9a745d': `${jobSource}`,
+          '6bf0533cf7d8ca42419fd25c8e11466bd0350283': `${address}, ${city}, ${state}, ${zip}`,
+          '2b83bef966adad1d365a5f680a5b047d79968c17': `${technician}`,
+          "a018e9713e35d227f69fdfe7201f5a64c125bdd5": `${jobID}`
         }),
       }
     )
