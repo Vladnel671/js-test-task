@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/public/form.css" />
+    <title>Form page</title>
+    <script type="module" src="/public/" defer></script>
+  </head>
+  <body>
+    <div class="forms-container">
+      <form id="сlient-details-form" action="">
+        <h1>Client details</h1>
+        <div class="inputs-container">
+          <input type="text" placeholder="First name" value="Test" /><input
+            type="text"
+            placeholder="Last name"
+          />
+        </div>
+        <input
+          type="text"
+          value="(233) 333-4455"
+          placeholder="Phone number"
+        /><input type="text" placeholder="Email" value="test@test.test" />
+      </form>
+
+      <form id="job-type-form" action="">
+        <h1>Job type</h1>
+        <select name="dvs" id="">
+          <option value="" selected disabled>Select job type</option>
+          <option value="recall">Recall Job</option>
+          <option value="rework">Rework Job</option>
+          <option value="maintenance">Maintenance Job</option>
+          <option value="assembly">Assembly Job</option>
+          <option value="inspection">Inspection Job</option>
+          <option value="calibration">Calibration Job</option>
+          <option value="production">Production Job</option>
+          <option value="repair">Repair Job</option>
+          <option value="welding">Welding Job</option>
+          <option value="packaging">Packaging Job</option>
+        </select>
+        <select name="" id="job-source-select">
+          <option value="GL Pinellas">GL Pinellas</option>
+        </select>
+        <input
+          type="text"
+          resize="true"
+          placeholder="Job description (optional)"
+        />
+      </form>
+
+      <form id="service-location-form" action="">
+        <h1>Service location</h1>
+        <input
+          id="address-select"
+          type="text"
+          placeholder="Address"
+          required
+          oninput="showSuggestions()"
+        />
+        <div id="suggestions-container"></div>
+        <input placeholder="City" type="text" id="cityInput" />
+        <input placeholder="State" id="stateInput" type="text" />
+        <div class="inputs-container">
+          <input type="text" placeholder="Zip-code" id="zipInput" />
+          <select name="" id="locationSelect">
+            <option value="" selected>Tampa</option>
+          </select>
+        </div>
+      </form>
+
+      <form id="scheduled-form" action="">
+        <h1>Scheduled</h1>
+        <input type="date" id="dateInput" />
+        <div class="inputs-container">
+          <input type="time" id="startTimeInput" />
+          <input type="time" id="endTimeInput" />
+        </div>
+        <select name="" id="">
+          <option value="" selected disabled>Select technician</option>
+          <option value="john_smith">John Smith</option>
+          <option value="emily_johnson">Emily Johnson</option>
+          <option value="michael_brown">Michael Brown</option>
+          <option value="sarah_davis">Sarah Davis</option>
+          <option value="james_wilson">James Wilson</option>
+          <option value="jessica_miller">Jessica Miller</option>
+          <option value="david_anderson">David Anderson</option>
+          <option value="sophia_martinez">Sophia Martinez</option>
+          <option value="daniel_thomas">Daniel Thomas</option>
+          <option value="olivia_taylor">Olivia Taylor</option>
+        </select>
+      </form>
+    </div>
+    <div id="deal-link-container" style="display: none">
+      <h2>
+        Job is created! <a id="deal-link" href="#" target="_blank">View deal</a>
+      </h2>
+    </div>
+    <div class="btn-container">
+      <button type="submit" class="first" onclick="submitForm(event)">
+        Create job</button
+      ><button type="button" class="second">Save info</button>
+    </div>
+  </body>
+</html>
