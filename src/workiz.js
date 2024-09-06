@@ -47,7 +47,6 @@ window.addDeal = async function () {
     button.style.backgroundColor = 'red'
 
     const apiKey = import.meta.env.VITE_API_KEY
-    console.log(apiKey)
 
     const response = await fetch(
       `https://api.pipedrive.com/v1/deals?api_token=${apiKey}`,
@@ -79,9 +78,24 @@ window.addDeal = async function () {
     if (response.ok) {
       console.log('Deal was added successfully!', data)
 
+      const buttons = document.querySelectorAll('button')
+      buttons.forEach((button) => {
+        button.style.display = 'none'
+      })
+
+      const formsContainer = document.querySelector('.forms-container')
+      if (formsContainer) {
+        formsContainer.style.display = 'none'
+      }
+
       const dealId = data.data.id
-      const dealUrl = `https://yourcompanyname.pipedrive.com/deal/${dealId}`
-      window.open(dealUrl, '_blank')
+      const dealUrl = `https://vladislav-sandbox.pipedrive.com/deal/${dealId}`
+
+      const dealLink = document.getElementById('deal-link')
+      dealLink.href = dealUrl
+
+      const dealLinkContainer = document.getElementById('deal-link-container')
+      dealLinkContainer.style.display = 'block'
     } else {
       console.error('Failed to add deal:', data)
     }
