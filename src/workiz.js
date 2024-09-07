@@ -39,10 +39,6 @@ function selectAddress(address) {
   document.getElementById('suggestions-container').innerHTML = ''
 }
 
-function generateJobID() {
-  return Math.random().toString(36).substr(2, 9)
-}
-
 window.addDeal = async function () {
   try {
     console.log('Sending request...')
@@ -87,7 +83,7 @@ window.addDeal = async function () {
       '#scheduled-form input[type="time"]:nth-child(2)'
     ).value
     const technician = document.querySelector('#scheduled-form select').value
-    const jobID = generateJobID()
+
     const response = await fetch(
       `https://api.pipedrive.com/v1/deals?api_token=${apiKey}`,
       {
@@ -96,8 +92,10 @@ window.addDeal = async function () {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: `JOB - ${jobID}`,
+          title: `JOB - ${firstName} ${lastName}`,
           add_time: new Date().toISOString(),
+          '90b6d7867b88760207bd2c50949402600642979d':`${phoneNumber}`,
+          "5cdd40ece34fa51686077eea1b8a45a6015fba10": `${email}`,
           'ef7d645cac543da5c457666b08698fa9a9e7c39e': `${date}`,
           '65ec34aa89ec2138cbc2488c1958d54a4754489a': `${jobDescription}`,
           'bc1f7b25cc42d2dd74074c23d6b7fbe688c32814': `${jobType}`,
@@ -106,7 +104,6 @@ window.addDeal = async function () {
           'b85d774eb991dea75388ca7483647e5e1e9a745d': `${jobSource}`,
           '6bf0533cf7d8ca42419fd25c8e11466bd0350283': `${address}, ${city}, ${state}, ${zip}`,
           '2b83bef966adad1d365a5f680a5b047d79968c17': `${technician}`,
-          "a018e9713e35d227f69fdfe7201f5a64c125bdd5": `${jobID}`
         }),
       }
     )
@@ -128,6 +125,27 @@ window.addDeal = async function () {
 
       const dealId = data.data.id
       const dealUrl = `https://vladislav-sandbox.pipedrive.com/deal/${dealId}`
+
+      const updateResponse = await fetch(
+        `https://api.pipedrive.com/v1/deals/${dealId}?api_token=${apiKey}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "a018e9713e35d227f69fdfe7201f5a64c125bdd5": dealId,
+          }),
+        }
+      )
+
+      const updateData = await updateResponse.json()
+
+      if (updateResponse.ok) {
+        console.log('Deal updated with jobID successfully!', updateData)
+      } else {
+        console.error('Failed to update deal:', updateData)
+      }
 
       const dealLink = document.getElementById('deal-link')
       dealLink.href = dealUrl
