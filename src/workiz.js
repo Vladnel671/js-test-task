@@ -65,7 +65,7 @@ window.addDeal = async function () {
 
     const jobType = document.querySelector('#job-type-form select').value
     const jobDescription = document.querySelector(
-      '#job-type-form input[placeholder="Job description (optional)"]'
+      '#job-type-form textarea[placeholder="Job description (optional)"]'
     ).value
 
     const address = document.getElementById('address-select').value

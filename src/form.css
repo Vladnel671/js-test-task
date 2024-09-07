@@ -55,6 +55,13 @@ form {
   gap: 1rem;
   border-radius: 15px;
   position: relative;
+  overflow: hidden;
+}
+
+textarea {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .inputs-container {
